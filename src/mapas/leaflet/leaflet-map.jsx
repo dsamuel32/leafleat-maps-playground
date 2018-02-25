@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 
 import 'modules/leaflet/dist/leaflet.css'
+import 'modules/leaflet-draw/dist/leaflet.draw.css'
 import './leaflet-map.css'
 
 import L from 'leaflet'
+import { Draw } from 'leaflet-draw';
 
 const center = [51.505, -0.09];
 const zoom = 18;
-let editableLayers;
 
 export default class LeafletMap extends Component {
     
@@ -17,13 +18,23 @@ export default class LeafletMap extends Component {
         let map = L.map('mapLeaflet', { drawControl: true }).setView(center, zoom);
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-            maxZoom: zoom
+            maxZoom: zoom,
+            draw: {}
         }).addTo(map);
+
+        var editableLayers = new L.FeatureGroup();
+        map.addLayer(editableLayers);
+        map.removeControl(map.drawControl)
+        map.addControl(new L.Control.Draw(this.drawControls()))
         
-        L.marker(center).addTo(map);        
+        map.on('draw:created', function (e) {
+            console.log(e);
+            map.addLayer(e.layer);
+        });
+        
     }
 
-    drawPluginOptions() {
+    drawControls() {
         return {
             position: 'topright',
             draw: {
@@ -42,11 +53,7 @@ export default class LeafletMap extends Component {
                 circle: false, // Turns off this drawing tool
                 rectangle: false,
                 marker: false,
-                },
-            edit: {
-                featureGroup: editableLayers, //REQUIRED!!
-                remove: false
-            }
+                }
         }
     }
 
