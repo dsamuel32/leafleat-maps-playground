@@ -7,22 +7,18 @@ import './leaflet-map.css'
 import L from 'leaflet'
 import { Draw } from 'leaflet-draw';
 
-const center = [51.505, -0.09];
-const zoom = 18;
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
-export default class LeafletMap extends Component {
-    
+import { criateMap } from './leaflet-action'
+
+class LeafletMap extends Component {
     
     componentDidMount() {
         
-        let map = L.map('mapLeaflet', { drawControl: true }).setView(center, zoom);
-        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-            maxZoom: zoom,
-            draw: {}
-        }).addTo(map);
+        this.props.criateMap(this.props);
 
-        var editableLayers = new L.FeatureGroup();
+        /*var editableLayers = new L.FeatureGroup();
         map.addLayer(editableLayers);
         map.removeControl(map.drawControl)
         map.addControl(new L.Control.Draw(this.drawControls()))
@@ -30,7 +26,7 @@ export default class LeafletMap extends Component {
         map.on('draw:created', function (e) {
             console.log(e);
             map.addLayer(e.layer);
-        });
+        });*/
         
     }
 
@@ -63,5 +59,16 @@ export default class LeafletMap extends Component {
 
 }
 
+const mapStateToProps = state => (
+    {
+        id: state.leaflet.id, 
+        map: state.leaflet.map, 
+        center: state.leaflet.center, 
+        zoom: state.leaflet.zoom, 
+        drawControl: state.leaflet.drawControl
+    })
+const mapDispatchToProps = dispatch => bindActionCreators({ criateMap }, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps) (LeafletMap)
 //https://jsfiddle.net/user2314737/324h2d9q/
 //https://github.com/Leaflet/Leaflet.draw

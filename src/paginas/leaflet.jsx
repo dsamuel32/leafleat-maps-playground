@@ -6,8 +6,7 @@ import Row from '../comum/layout/row'
 import LeafletMap from '../mapas/leaflet/leaflet-map'
 
 
-
-export default class ArcGis extends Component {
+export default class Leaflet extends Component {
 
    
     render() {
