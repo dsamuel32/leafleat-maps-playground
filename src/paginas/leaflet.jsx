@@ -5,6 +5,7 @@ import Content from '../comum/template/content/content'
 import Row from '../comum/layout/row'
 import LeafletMap from '../mapas/leaflet/leaflet-map'
 import LeafletPolygon from '../mapas/leaflet/leaflet-polygon'
+import LeafletLine from '../mapas/leaflet/leaflet-line'
 
 
 export default class Leaflet extends Component {
@@ -18,6 +19,7 @@ export default class Leaflet extends Component {
                     <Row>
                         <LeafletMap>
                             <LeafletPolygon></LeafletPolygon>
+                            <LeafletLine></LeafletLine>
                         </LeafletMap>
                     </Row>                    
                 </Content>

@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { addPolygon } from './leaflet-action'
+import { addPolyline } from './leaflet-action'
 
-class LeafletPolygon extends Component {
+class LeafLetLine extends Component {
 
     componentWillMount () {
-        this.props.addPolygon(this.props)
+        this.props.addPolyline(this.props)
     }
 
     render () {
@@ -21,6 +21,6 @@ const mapStateToProps = state => (
         map: state.leaflet.map,
         drawControls: state.leaflet.drawControls
     })
-const mapDispatchToProps = dispatch => bindActionCreators({ addPolygon }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ addPolyline }, dispatch)
 
-export default connect(mapStateToProps, mapDispatchToProps) (LeafletPolygon)
+export default connect(mapStateToProps, mapDispatchToProps) (LeafLetLine)

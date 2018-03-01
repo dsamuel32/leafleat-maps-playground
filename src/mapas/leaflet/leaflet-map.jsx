@@ -51,9 +51,11 @@ class LeafletMap extends Component {
 
     render() {
         return (
-            <div id="mapLeaflet">
-                {this.props.children}
+            <div>
+                <div id="mapLeaflet"></div>
+                { this.props.mapRender ? this.props.children : '' }
             </div>
+            
         )
     }
 
@@ -62,7 +64,8 @@ class LeafletMap extends Component {
 const mapStateToProps = state => (
     {
         id: state.leaflet.id, 
-        map: state.leaflet.map, 
+        map: state.leaflet.map,
+        mapRender: state.leaflet.mapRender, 
         center: state.leaflet.center, 
         zoom: state.leaflet.zoom, 
         drawControl: state.leaflet.drawControl,
