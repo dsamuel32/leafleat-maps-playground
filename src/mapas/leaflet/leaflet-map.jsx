@@ -1,21 +1,17 @@
 import React, { Component } from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
 import 'modules/leaflet/dist/leaflet.css'
 import 'modules/leaflet-draw/dist/leaflet.draw.css'
 import './leaflet-map.css'
-
-import L from 'leaflet'
-import { Draw } from 'leaflet-draw';
-
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
 
 import { criateMap } from './leaflet-action'
 
 class LeafletMap extends Component {
     
     componentDidMount() {
-        
+        console.log('pai')
         this.props.criateMap(this.props);
 
         /*var editableLayers = new L.FeatureGroup();
@@ -54,7 +50,11 @@ class LeafletMap extends Component {
     }
 
     render() {
-        return (<div id="mapLeaflet"></div>)
+        return (
+            <div id="mapLeaflet">
+                {this.props.children}
+            </div>
+        )
     }
 
 }
@@ -65,7 +65,8 @@ const mapStateToProps = state => (
         map: state.leaflet.map, 
         center: state.leaflet.center, 
         zoom: state.leaflet.zoom, 
-        drawControl: state.leaflet.drawControl
+        drawControl: state.leaflet.drawControl,
+        drawControls: state.leaflet.drawControls
     })
 const mapDispatchToProps = dispatch => bindActionCreators({ criateMap }, dispatch)
 
