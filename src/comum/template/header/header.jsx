@@ -8,10 +8,10 @@ class Header extends Component {
         return (
             <header className="main-header">
                 <a href="/#/" className="logo">
-                    <span className="logo-mini"><b>Ci</b>Pag</span>
+                    <span className="logo-mini"><b>M</b>Play</span>
                     <span className="logo-lg">
-                        <i className="fa fa-money"></i>
-                        <b>Ciclo</b> Pagamento
+                        <i className="fa fa-map"></i>
+                        <b> Mapas</b> Playground
                     </span>
                 </a>
                 
