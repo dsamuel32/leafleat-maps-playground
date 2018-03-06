@@ -1,7 +1,9 @@
 import { toastr } from 'react-redux-toastr'
 
 import L from 'leaflet'
-import { Draw } from 'leaflet-draw';
+import { Draw } from 'leaflet-draw'
+import tooType from './tool-type'
+import toolType from './tool-type';
 
 export function criateMap(props) {
     console.log('evento pai')
@@ -26,8 +28,9 @@ export function criateMap(props) {
 
 export function addPolygon(props) {
     props.map.removeControl(props.map.drawControl)
-    props.drawControls.draw.polygon = true
-    props.map.addControl(new L.Control.Draw(props.drawControls))
+    let params =  { polygon: true }
+    props.drawControls.draw.polygon = params.polygon;
+    props.map.addControl(createControl(props.drawControls, params, toolType.POLYGON))
     return {
         type: 'ADD_POLYGON',
         payload: { map: props.map, drawControls: props.drawControls }
@@ -36,13 +39,86 @@ export function addPolygon(props) {
 }
 
 export function addPolyline(props) {
-    props.map.removeControl(props.map.drawControl)
-    props.drawControls.draw.polygon = false
-    props.drawControls.draw.polyline = true
-    props.map.addControl(new L.Control.Draw(props.drawControls))
+    let params =  { polyline: true }
+    props.drawControls.draw.polyline = params.polyline;
+    props.map.addControl(createControl(props.drawControls, params, toolType.POLYLINE))
 
     return {
         type: 'ADD_POLYLINE',
         payload: { map: props.map, drawControls: props.drawControls }
     }
+}
+
+export function addCircle(props) {
+    let params =  { circle: true }
+    props.drawControls.draw.circle = params.circle;
+    props.map.addControl(createControl(props.drawControls, params, toolType.CIRCLE))
+
+    return {
+        type: 'ADD_CIRCLE',
+        payload: { map: props.map, drawControls: props.drawControls }
+    }
+}
+
+export function addRectangle(props) {
+    let params =  { rectangle: true }
+    props.drawControls.draw.rectangle = params.rectangle;
+    props.map.addControl(createControl(props.drawControls, params, toolType.RETANGLE))
+
+    return {
+        type: 'ADD_RETANGLE',
+        payload: { map: props.map, drawControls: props.drawControls }
+    }
+}
+
+export function addMarker(props) {
+    let params =  { marker: true }
+    props.drawControls.draw.marker = params.marker;
+    props.map.addControl(createControl(props.drawControls, params, toolType.MARKER))
+
+    return {
+        type: 'ADD_MARKER',
+        payload: { map: props.map, drawControls: props.drawControls }
+    }
+}
+
+export function addCircleMarker(props) {
+    let params =  { circlemarker: true }
+    props.drawControls.draw.circlemarker = params.circlemarker;
+    props.map.addControl(createControl(props.drawControls, params, toolType.CIRCLEMARCKER))
+
+    return {
+        type: 'ADD_CIRCLE_MARKER',
+        payload: { map: props.map, drawControls: props.drawControls }
+    }
+}
+
+function createControl(drawControls, params, type) {
+    let tools = { polygon: false, polyline: false, circle: false, rectangle: false, marker: false, circlemarker: false }
+
+    switch(type) {
+        case toolType.POLYGON:
+            tools = { polygon: params, polyline: false, circle: false, rectangle: false, marker: false, circlemarker: false }
+            break
+        case toolType.POLYLINE:
+            tools = { polygon: false, polyline: params, circle: false, rectangle: false, marker: false, circlemarker: false }
+            break
+        case toolType.CIRCLE:
+            tools = { polygon: false, polyline: false, circle: params, rectangle: false, marker: false, circlemarker: false }
+            break
+        case toolType.RETANGLE:
+            tools = { polygon: false, polyline: false, circle: false, rectangle: params, marker: false, circlemarker: false }
+            break
+        case toolType.MARKER:
+            tools = { polygon: false, polyline: false, circle: false, rectangle: false, marker: params, circlemarker: false }
+            break
+        case toolType.CIRCLEMARCKER:
+            tools = { polygon: false, polyline: false, circle: false, rectangle: false, marker: false, circlemarker: params }
+            break
+        default:
+            tools = { polygon: params, polyline: false, circle: false, rectangle: false, marker: false, circlemarker: false }         
+    }
+    return new L.Control.Draw({...drawControls, draw: tools })
+    
+    
 }

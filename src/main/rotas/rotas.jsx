@@ -10,7 +10,7 @@ export default props => (
         <App>
             <Switch>
                 <Route exact path='/' component={Leaflet}/>
-                <Route path='/arcgis' component={Leaflet}/>
+                <Route path='/leaflet' component={Leaflet}/>
                 <Route path='/teste2' component={Teste2}/>
                 <Redirect from="*" to="/" />
             </Switch>

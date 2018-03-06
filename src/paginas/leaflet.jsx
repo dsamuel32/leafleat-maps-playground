@@ -6,6 +6,10 @@ import Row from '../comum/layout/row'
 import LeafletMap from '../mapas/leaflet/leaflet-map'
 import LeafletPolygon from '../mapas/leaflet/leaflet-polygon'
 import LeafletLine from '../mapas/leaflet/leaflet-line'
+import LeafletCircle from '../mapas/leaflet/leaflet-circle'
+import LeafletRectangle from '../mapas/leaflet/leaflet-rectangle'
+import LeafletMarker from '../mapas/leaflet/leaflet-marker'
+import LeafletCircleMarker from '../mapas/leaflet/leafleat-circle-marker'
 
 
 export default class Leaflet extends Component {
@@ -20,6 +24,10 @@ export default class Leaflet extends Component {
                         <LeafletMap>
                             <LeafletPolygon></LeafletPolygon>
                             <LeafletLine></LeafletLine>
+                            <LeafletCircle></LeafletCircle>
+                            <LeafletRectangle></LeafletRectangle>
+                            <LeafletMarker></LeafletMarker>
+                            <LeafletCircleMarker></LeafletCircleMarker>
                         </LeafletMap>
                     </Row>                    
                 </Content>

@@ -27,6 +27,14 @@ export default function (state = INITIAL_STATE, action) {
             return { ...state, map: action.payload.map, drawControls: action.payload.drawControls }
         case 'ADD_POLYLINE':
             return { ...state, map: action.payload.map, drawControls: action.payload.drawControls }
+        case 'ADD_CIRCLE':
+            return { ...state, map: action.payload.map, drawControls: action.payload.drawControls }
+        case 'ADD_RETANGLE':
+            return { ...state, map: action.payload.map, drawControls: action.payload.drawControls }
+        case 'ADD_MARKER':
+            return { ...state, map: action.payload.map, drawControls: action.payload.drawControls }
+        case 'ADD_CIRCLE_MARKER':
+            return { ...state, map: action.payload.map, drawControls: action.payload.drawControls }
         default:
             return state 
     }

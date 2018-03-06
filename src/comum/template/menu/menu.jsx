@@ -8,10 +8,7 @@ class Menu extends Component {
         return (
             <ul className="sidebar-menu">
                 <MenuTree key="1" nome="Mapas" icone="map">
-                    <MenuItem key="2" url="/arcgis" icone="" nome="ArcGis"/>
-                    <MenuItem key="3" url="/teste1" icone="" nome="Google"/>
-                    <MenuItem key="4" url="/teste1" icone="" nome="Leaflet"/>
-                    <MenuItem key="5" url="/teste1" icone="" nome="OpenLayers"/>                    
+                    <MenuItem key="2" url="/leaflet" icone="leaf" nome="Leaflet"/>                  
                 </MenuTree>                
             </ul>
         )
