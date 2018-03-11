@@ -11,7 +11,6 @@ import { criateMap } from './leaflet-action'
 class LeafletMap extends Component {
     
     componentDidMount() {
-        console.log('pai')
         this.props.criateMap(this.props);
 
         /*var editableLayers = new L.FeatureGroup();

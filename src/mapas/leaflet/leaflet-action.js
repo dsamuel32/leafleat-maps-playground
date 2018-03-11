@@ -4,6 +4,8 @@ import L from 'leaflet'
 import { Draw } from 'leaflet-draw'
 import tooType from './tool-type'
 import toolType from './tool-type';
+import iconeMarker from './imagens/leaf-green.png'
+import shadowMarker from './imagens/leaf-shadow.png'
 
 export function criateMap(props) {
     console.log('evento pai')
@@ -18,7 +20,8 @@ export function criateMap(props) {
     map.addLayer(editableLayers);*/
   
     map.removeControl(map.drawControl)
-    map.addControl(new L.Control.Draw(props.drawControls))
+    map.addControl(new L.Control.Draw(props.drawControls))   
+    eventoControles(map)
 
     return {
         type: 'CREATE_MAP',
@@ -65,6 +68,8 @@ export function addRectangle(props) {
     props.drawControls.draw.rectangle = params.rectangle;
     props.map.addControl(createControl(props.drawControls, params, toolType.RETANGLE))
 
+    
+
     return {
         type: 'ADD_RETANGLE',
         payload: { map: props.map, drawControls: props.drawControls }
@@ -75,7 +80,9 @@ export function addMarker(props) {
     let params =  { marker: true }
     props.drawControls.draw.marker = params.marker;
     props.map.addControl(createControl(props.drawControls, params, toolType.MARKER))
-
+    
+    
+    
     return {
         type: 'ADD_MARKER',
         payload: { map: props.map, drawControls: props.drawControls }
@@ -121,4 +128,31 @@ function createControl(drawControls, params, type) {
     return new L.Control.Draw({...drawControls, draw: tools })
     
     
+}
+
+function eventoControles(map) {
+    map.on('draw:created', function (e) {
+        console.log(e);
+        if (e.layerType === 'marker') {
+            debugger;
+            L.marker([e.layer._latlng.lat, e.layer._latlng.lng], {icon: criarIconeMarker(map)}).addTo(map);
+        }
+        map.addLayer(e.layer);     
+    })
+}
+
+function criarIconeMarker(map) {
+    var greenIcon = L.icon({
+        iconUrl: iconeMarker,
+        shadowUrl: shadowMarker,
+    
+        iconSize:     [38, 95], // size of the icon
+        shadowSize:   [50, 64], // size of the shadow
+        iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+        shadowAnchor: [4, 62],  // the same for the shadow
+        popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+    })
+
+    return greenIcon;
+
 }
